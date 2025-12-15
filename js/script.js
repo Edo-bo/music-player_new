@@ -158,8 +158,8 @@ async function playSong(index) {
         const response = await fetch(`${API_URL.DOWNLOAD_MP3}?url=${encodeURIComponent(song.videoUrl)}`);
         const data = await response.json();
         
-        // Direct access to download URL
-        const downloadUrl = data && data.data && data.data.dl ? data.data.dl : null;
+        // Direct access to download URL based on Alip API: data.result.audio
+        const downloadUrl = data && data.result ? data.result.audio : null;
         
         if (!downloadUrl) {
             throw new Error('Failed to get audio URL');
@@ -452,7 +452,8 @@ function downloadCurrentSong() {
         .then(data => {
             loadingElement.style.display = 'none';
             
-            const downloadUrl = data && data.data && data.data.dl ? data.data.dl : null;
+            // Updated parsing to match Alip API: data.result.audio
+            const downloadUrl = data && data.result ? data.result.audio : null;
             if (downloadUrl) {
                 window.open(downloadUrl, '_blank');
             } else {

@@ -6,7 +6,7 @@
 // API URLs - Basic configuration
 const API_URL = {
     SEARCH: 'https://api.siputzx.my.id/api/s/youtube',
-    DOWNLOAD_MP3: 'https://api.siputzx.my.id/api/d/ytmp3'
+    DOWNLOAD_MP3: 'https://alipai-api.vercel.app/download/ytdl'
 };
 
 // App defaults
@@ -51,7 +51,8 @@ const UTILS = {
     },
     
     // Get download URL from API response
+    // Updated to match Alip API structure: data.result.audio
     getDownloadUrl: function(data) {
-        return data && data.dl ? data.dl : null;
+        return data && data.result ? data.result.audio : null;
     }
 };
